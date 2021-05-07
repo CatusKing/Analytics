@@ -63,10 +63,10 @@ client.once('ready', () => {
       if (!data.optIn) return;
       if (member.voice.channel != null) {
         data.voice.inVoice += 1;
-        if (member.voice.deaf != null) data.voice.deafened += 1;
-        else if (member.voice.mute != null) data.voice.muted += 1;
-        if (member.voice.selfVideo != null) data.voice.selfVideo += 1;
-        if (member.voice.streaming != null) data.voice.streamed += 1;
+        if (member.voice.deaf) data.voice.deafened += 1;
+        else if (member.voice.mute) data.voice.muted += 1;
+        if (member.voice.selfVideo) data.voice.selfVideo += 1;
+        if (member.voice.streaming) data.voice.streamed += 1;
       }
       if (member.presence.status != 'offline') data.presence.totalOnline += 1;
       if (member.presence.status == 'online') data.presence.online += 1;
