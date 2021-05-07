@@ -81,6 +81,7 @@ client.once('ready', () => {
       console.debug(member.user.tag);
     });
   }, 60000);
+  client.user.setActivity('a!stats');
   console.log('Bot init complete');
 });
 
