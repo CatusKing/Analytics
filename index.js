@@ -96,7 +96,7 @@ client.on('message', msg => {
   if (['stats', 'analytics'].includes(command)) {
     const member = db.get(`discord.members.${msg.member.id}`);
     var embed = new Discord.MessageEmbed()
-      .setFooter('All data is safely stored and can only be accessed by you! All tracking started on 5/7 1PM EST')
+      .setFooter('All data is safely stored and can only be accessed by you! All tracking started on 5/7 4PM EST')
       .setColor('#1434A4')
       .setTitle(`${msg.author.tag}'s Analytics`)
       .addField(`Opt Status`, `opt-${member.optIn || false}`.replace('true', 'in').replace('false', 'out'), true)
