@@ -77,8 +77,6 @@ client.once('ready', () => {
       if (member.presence.clientStatus.mobile) data.presence.mobile += 1;
       if (member.presence.clientStatus.web) data.presence.web += 1;
       db.set(`discord.members.${member.id}`, data);
-      console.debug(data);
-      console.debug(member.user.tag);
     });
   }, 60000);
   client.user.setActivity('a!stats');
