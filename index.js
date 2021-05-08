@@ -54,7 +54,7 @@ client.once('ready', () => {
   setInterval(() => {
     const members = client.guilds.cache.get(guildId).members.cache;
     members.forEach(member => {
-      if (member.user.bot) return;
+      if (member.user.bot || member.id == undefined) return;
       db.add(`discord.members.${member.id}.inServer`, 1);
       var temptData = db.get(`discord.members.${member.id}`);
       if (temptData.voice == undefined) resetVoice(member);
@@ -68,14 +68,16 @@ client.once('ready', () => {
         if (member.voice.selfVideo) data.voice.selfVideo += 1;
         if (member.voice.streaming) data.voice.streamed += 1;
       }
-      if (member.presence.status != 'offline') data.presence.totalOnline += 1;
+      if (member.presence.status != 'offline') {
+        data.presence.totalOnline += 1;
+        if (member.presence.clientStatus.desktop) data.presence.desktop += 1;
+        if (member.presence.clientStatus.mobile) data.presence.mobile += 1;
+        if (member.presence.clientStatus.web) data.presence.web += 1;  
+      }
       if (member.presence.status == 'online') data.presence.online += 1;
       else if (member.presence.status == 'idle') data.presence.away += 1;
       else if (member.presence.status == 'dnd') data.presence.dnd += 1;
       else if (member.presence.status == 'offline') data.presence.offline += 1;
-      if (member.presence.clientStatus.desktop) data.presence.desktop += 1;
-      if (member.presence.clientStatus.mobile) data.presence.mobile += 1;
-      if (member.presence.clientStatus.web) data.presence.web += 1;
       db.set(`discord.members.${member.id}`, data);
     });
   }, 60000);
